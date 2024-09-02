@@ -20,9 +20,9 @@
   // Width of the icons
   (icon_width = 190),
   // Height of one icon in the strip
-  (icon_height = 190),
+  (icon_height = 190.6),
   // Number of icons in the strip
-  (num_icons = 12),
+  (num_icons = 5),
   // Max-speed in ms for animating one icon down
   (time_per_icon = 50),
   // Holds icon indexes
@@ -32,13 +32,15 @@
   (iz = 0),
   //Contador para las trampas
   (contador_cheat = 0),
+  //Contador de los campos de la traga monedas
+  (contador_reel = 1),
   (Wild_cheat = randomIntFromInterval(3, 8)),
   (cheat = false),
   //Premios mayores
-  (Certification = 6),
-  (ServNow = 3),
-  (Serity = 0),
-  (Ipsum = 9);
+  (Certification = 3),
+  (ServNow = 2),
+  (Serity = 1),
+  (Ipsum = 4);
 //Elementos de la pagina web
 document.querySelector("#spinner").addEventListener("click", rollAll);
 const SlotSound = document.getElementById("SlotRandom");
@@ -84,11 +86,12 @@ const roll = (reel, offset = 0) => {
   // Minimum of 2 + the reel offset rounds
   if (cheat === true) {
     //Delta fijo
-    deltaProb = (offset + 2) * 12 - (rollfix[offset] - iz) + 3 * num_icons;
+    deltaProb =
+      (offset + 5) * num_icons - (rollfix[offset] - iz) + 8 * num_icons;
   } else {
     //Delta Aleatorio
     deltaProb =
-      (offset + 2) * num_icons + Math.round(Math.random() * num_icons);
+      (offset + 5) * num_icons + Math.round(Math.random() * num_icons);
   }
   const delta = deltaProb;
 
@@ -134,24 +137,30 @@ function rollAll() {
 
   if (contador_cheat == Wild_cheat) {
     cheat = true;
-    iz = randomIntFromInterval(0, 10);
+    iz = randomIntFromInterval(0, 4);
     console.log("Trampa Time!!!");
-    console.log(iz);
+    console.log("el iz es" + iz);
     console.log(Wild_cheat);
   }
 
   Promise
 
     // Activate each reel, must convert NodeList to Array for this with spread operator
-    .all([...reelsList].map((reel, i) => roll(reel, i)))
+    .all(
+      [...reelsList].map((reel, i) => {
+        console.log(`Girando la casilla ${i + 1}`);
+        return roll(reel, i);
+      })
+    )
 
     // When all reels done animating (all promises solve)
     .then((deltas) => {
       // add up indexes
-      deltas.forEach(
-        (delta, i) => (indexes[i] = (indexes[i] + delta) % num_icons)
-      );
-      console.log(indexes);
+      deltas.forEach((delta, i) => {
+        indexes[i] = (indexes[i] + delta) % num_icons;
+        console.log("Vamos en el delta: " + i);
+        console.log("con valor de: " + delta);
+      });
 
       // Win conditions
       if (indexes[0] == indexes[1] && indexes[1] == indexes[2]) {
@@ -163,6 +172,8 @@ function rollAll() {
           2500
         );
         setTimeout(() => winwinsound.pause(), 2500);
+        contador_cheat = 0;
+        Wild_cheat = randomIntFromInterval(3, 8);
       } else if (indexes[0] == indexes[1] || indexes[1] == indexes[2]) {
         const winCls = "win1";
         document.querySelector(".slots").classList.add(winCls);

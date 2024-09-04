@@ -176,6 +176,14 @@ body {
   margin-left: -550px;
 }
 
+.centradoSN {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  margin-top: 185px;
+  margin-left: 100px;
+}
+
 .cheat {
   background: transparent;
   color: transparent;

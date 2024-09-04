@@ -50,6 +50,7 @@ const losesound = document.getElementById("lose");
 const playBtn = document.getElementById("spinner");
 const SerityBtn = document.getElementById("SerityBTN");
 const IpsumBtn = document.getElementById("IpsumBTN");
+const SNBtn = document.getElementById("SNBTN");
 
 //Añadir Sonidos
 document.addEventListener("DOMContentLoaded", function () {
@@ -76,6 +77,13 @@ document.addEventListener("DOMContentLoaded", function () {
 document.addEventListener("DOMContentLoaded", function () {
   IpsumBtn.addEventListener("click", function () {
     iz = Ipsum;
+    cheat = true;
+  });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  SNBtn.addEventListener("click", function () {
+    iz = ServNow;
     cheat = true;
   });
 });

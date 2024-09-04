@@ -1,206 +1,42 @@
-html,
-body {
-  height: 100%;
-  background-image: url("../img/background.png");
-  background-size: auto auto;
-  background-position: center; /* Center the background image */
-}
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Casino</title>
+    <link rel="stylesheet" href="./templates/styles.css" />
+    <script src="main.js" defer></script>
+    <audio id="SlotRandom" src="./sound/SlotRandom2.wav"></audio>
+    <audio id="winwin" src="./sound/Winwin.wav"></audio>
+    <audio id="win" src="./sound/Winwin2.wav"></audio>
+    <audio id="lose" src="./sound/loose.mp3"></audio>
+  </head>
 
-body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+  <body>
+    <header>
+      <main>
+        <div class="parent">
+          <div class="slots">
+            <div class="reel"></div>
+            <div class="reel"></div>
+            <div class="reel"></div>
+          </div>
 
-.slots {
-  position: relative;
-  width: 598.5px;
-  height: 366.7px;
-  display: flex;
-  justify-content: space-between;
-  padding: 19px;
-  background: transparent;
-  margin-top: -50px;
-  margin-left: 3px;
-  border-radius: 30px;
-}
-.slots::before, .slots::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  width: 10px;
-  height: 2px;
-  background-color: rgba(0, 0, 0, 0.5);
-}
-.slots::before {
-  left: 0;
-  transform: translate(-200%, -50%);
-}
-.slots::after {
-  right: 0;
-  transform: translate(200%, -50%);
-}
-@keyframes win1 {
-  0% {
-    background: linear-gradient(45deg, orange 0%, yellow 100%);
-    box-shadow: 0 0 80px orange;
-  }
-  100% {
-    background: transparent;
-    box-shadow: -2px 2px 3px rgba(0, 0, 0, 0.3);
-  }
-}
-@keyframes win2 {
-  0% {
-    background: radial-gradient(hsl(195, 53%, 79%) 0%, lightgreen 100%);
-    box-shadow: 0 0 80px lightgreen;
-  }
-  100% {
-    background: transparent;
-    box-shadow: -2px 2px 3px rgba(0, 0, 0, 0.3);
-  }
-}
-@keyframes loose {
-  0% {
-    background: radial-gradient(rgb(228, 175, 175) 0%, red 100%);
-    box-shadow: 10px 0 80px rgb(255, 0, 0);
-  }
-  100% {
-    background: transparent;
-    box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.3);
-  }
-}
-.slots.win1 {
-  animation: win1 200ms steps(3, end) infinite;
-}
-.slots.win2 {
-  animation: win2 200ms steps(3, end) infinite;
-}
-.slots.loose {
-  animation: loose 200ms steps(3, end) infinite;
-}
-.slots .reel {
-  position: relative;
-  width: 380px;
-  height: 380px;
-  border: transparent;
-  border-radius: 3px;
-  overflow: hidden;
-  background-image: url(../img/Slots.png);
-  background-position: 0 95px;
-  background-repeat: repeat-y;
-}
-.slots .reel::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.4) 0%, transparent 15%, transparent 40%, rgba(0, 0, 0, 0.4) 100%);
-  box-shadow: inset 0 0 6px 2px rgba(0, 0, 0, 0.3);
-}
-.slots p {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  width: 100%;
-  transform: translate(-50%, calc(100% + 30px));
-  text-align: center;
-  font-size: 0.8rem;
-  color: #444;
-}
-.slots p a {
-  color: red;
-  font-weight: 700;
-}
+          <div class="centrado">
+            <button id="spinner" class="boton">Let's play</button>
+          </div>
 
-.centrado {
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  margin-top: 35px;
-  margin-left: 97px;
-}
-
-.boton {
-  background: linear-gradient(0deg, rgb(0, 24, 29) 0%, rgb(0, 185, 158) 62%, rgb(29, 241, 203) 100%);
-  color: gold;
-  height: 85px;
-  width: 446px;
-  font-size: 50px;
-  text-align: center;
-  text-transform: uppercase;
-  transition: 0.2s;
-  background-size: 200% auto;
-  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15), 0 3px 6px rgba(0, 0, 0, 0.1);
-  font-family: Verdana;
-  border-radius: 15px;
-  display: block;
-}
-
-.boton:hover {
-  background-position: left; /* change the direction of the change here */
-  color: #fff;
-  text-decoration: none;
-  background-image: linear-gradient(to top, #016655, #018376);
-  box-shadow: 0 0 30px #f1e61e;
-}
-
-.boton:active {
-  transform: translateY(20px);
-}
-
-.boton:disabled {
-  background-position: left; /* change the direction of the change here */
-  color: #fff;
-  text-decoration: none;
-  background-image: linear-gradient(to top, #016655, #018376);
-  box-shadow: 0 0 30px #f1e61e;
-  pointer-events: none;
-}
-
-.centradoSerity {
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  margin-top: 185px;
-  margin-left: 750px;
-}
-
-.centradoIpsum {
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  margin-top: 185px;
-  margin-left: -550px;
-}
-
-.centradoSN {
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  margin-top: 185px;
-  margin-left: 100px;
-}
-
-.cheat {
-  background: transparent;
-  color: transparent;
-  border: transparent;
-  height: 85px;
-  width: 446px;
-  font-size: 50px;
-  text-align: center;
-  text-transform: uppercase;
-  transition: 0.2s;
-  background-size: 200% auto;
-  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15), 0 3px 6px rgba(0, 0, 0, 0.1);
-  font-family: Verdana;
-  border-radius: 15px;
-  display: block;
-}
-
-.cheat:hover {
-  cursor: grab;
-}/*# sourceMappingURL=styles.css.map */
+          <div class="centradoSerity">
+            <button id="SerityBTN" class="cheat">Let's play</button>
+          </div>
+          <div class="centradoIpsum">
+            <button id="IpsumBTN" class="cheat">Let's play</button>
+          </div>
+          <div class="centradoSN">
+            <button id="SNBTN" class="cheat">Let's play</button>
+          </div>
+        </div>
+      </main>
+    </header>
+  </body>
+</html>
